@@ -1,0 +1,361 @@
+
+/* Corps de la page */
+
+html,
+body {
+	margin: 0;
+	overflow-x: hidden;
+	background-color: black;
+}
+
+/* Menu de navigation */
+
+header {
+	position: fixed;
+	right: 0;
+	z-index: 1;
+}
+
+nav {
+	right: 0;
+	top: 50vh;
+	opacity: 0;
+	z-index: 99;
+	padding: 16px;
+	margin: 0 16px;
+	display: block;
+	min-width: 320px;
+	max-width: 100vw;
+	overflow-y: auto;
+	position: absolute;
+	border-radius: 16px;
+	/* Chrome // Firefox */
+	width: max-content;
+	width: -moz-max-content;
+	box-sizing: border-box;
+	transform: translate(100%, -50%);
+	max-height: calc(100vh - 32px);
+	background-color: rgba(16, 16, 46, .7);
+	transition-property: opacity, transform;
+	transition-duration: .25s;
+}
+
+nav.visible {
+	opacity: 1;
+	transform: translate(0, -50%);
+}
+
+/* Boutons du menu */
+
+nav a {
+	height: 60px;
+	margin: 4px 0;
+	color: #c1985f;
+	display: block;
+	padding: 0 16px;
+	overflow: hidden;
+	line-height: 60px;
+	text-align: center;
+	border-radius: 12px;
+	text-decoration: none;
+	font-size: calc(24px + 1vmin);
+	font-family: "Parisienne", "Open Sans", "Arial";
+	transition: background-color .4s;
+}
+
+nav a:hover {
+	color: #060815;
+	background-color: #c1985f;
+}
+
+nav a.actif {
+	color: #060815;
+	background-color: #b0874e;
+}
+
+/* Bouton d'ouverture du menu */
+
+#boutonMenu {
+	right: 0;
+	padding: 0;
+	margin: 4px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	position: absolute;
+	border-radius: 12px;
+	background-color: rgba(0, 0, 0, .6);
+}
+
+#boutonMenu.caché { visibility: hidden; }
+
+#boutonMenu,
+#boutonMenu img {
+	height: 48px;
+	width:  48px;
+	transition: filter .2s;
+}
+
+#boutonMenu:hover img { filter: invert(.2); }
+
+/* Filtre du menu */
+
+#filtre {
+	right: 0;
+	width: 0;
+	opacity: 0;
+	height: 100vh;
+	cursor: pointer;
+	overflow: hidden;
+	position: absolute;
+	background-color: rgba(0, 0, 0, .8);
+	transition: width cubic-bezier(0,.75,1,1.5) .5s, opacity .25s;
+}
+
+#filtre.actif::after {
+	content: "Cliquez pour fermer le menu de navigation.";
+	font-family: "Parisienne", "Open Sans", "Arial";
+	transform: translate(calc(-50% - 160px), -50%);
+	text-align: center;
+	position: absolute;
+	display: block;
+	font-size: 5vh;
+	color: #eee;
+	opacity: 0;
+	left: 50%;
+	top: 50%;
+	transition: opacity .25s;
+}
+
+nav.visible + #filtre:hover::after { opacity: 1; }
+
+#filtre.actif {
+	opacity: 1;
+	width: 100vw;
+}
+
+/* Ensembles des sections */
+
+#conteneur {
+	display: block;
+	height: 100vh;
+	overflow: hidden;
+	scroll-behavior: smooth;
+}
+
+/* Pages de contenu */
+
+.fenêtre {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	color: #c1985f;
+	overflow: hidden;
+	align-items: center;
+	flex-direction: column;
+	box-sizing: border-box;
+	background-size: cover;
+	justify-content: space-around;
+	background-position: center center;
+	font-family: "Berkshire Swash", "Open Sans", "Arial";
+}
+
+/* Titres de section */
+
+.titre {
+	max-width: 100vw;
+	margin-bottom: 0;
+	align-self: center;
+	text-align: center;
+	text-shadow: 0 0 12px black;
+	font-size: calc(24px + 8vmin);
+}
+
+.titre small {
+	font-size: .6em;
+}
+
+/* Textes de section */
+
+.fenêtre p {
+	width: auto;
+	margin: auto;
+	max-width: 80vw;
+	padding: 10px 24px;
+	border-radius: 18px;
+	font-size: calc(12px + 1vmin);
+	line-height: calc(32px + 1vmin);
+}
+
+/* Liens de section */
+
+/* ces 3 propriétés sont nécessaires pour que les traits restent bien en-dessous des liens */
+.fenêtre a {
+	position: relative;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.fenêtre a::after {
+	left: 50%;
+	width: 1px;
+	height: 1px;
+	content: "";
+	display: block;
+	position: absolute;
+	background-color: #e3ba82;
+	transform: translate(-50%, -5px);
+	transition: width .3s;
+}
+
+/* Textes et boutons de défilement */
+
+.fenêtre p,
+#navigationRapide button {
+	text-align: center;
+	background-color: #000a;
+	text-shadow: 5px 3px 8px black;
+	box-shadow: 0 0 60px 8px black;
+}
+
+/* Boutons de défilement */
+
+#navigationRapide button {
+	float: left;
+	width: 57px;
+	height: 57px;
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 3vh;
+	color: inherit;
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: initial;
+}
+
+#navigationRapide button { position: absolute; }
+
+#navigationRapide button.caché { display: none; }
+
+#boutonPrécédent {
+	border-radius: 0 0 24px 0;
+	top: 0;
+}
+
+#boutonSuivant {
+	border-radius: 0 24px 0 0;
+	bottom: 0;
+}
+
+/* Liens et boutons de défilement */
+
+.fenêtre a,
+#navigationRapide button {
+	color: #c1985f;
+	text-decoration: none;
+	transition: color .2s;
+}
+
+/* Réactions au survol */
+
+.fenêtre a:hover,
+#navigationRapide button:hover { color: #e3ba82; }
+
+.fenêtre a:hover::after { width: 100%; }
+
+/* Propriétés des iframe (vidéos intégrées) */
+
+.fenêtre.vidéo iframe {
+	padding: 0;
+	border: none;
+	outline: none;
+	width: 60vmin;
+	height: 40vmin;
+	border-radius: 8px;
+}
+
+/* Barres de défilement de la page */
+
+*::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+*::-moz-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+/* Sélection de texte */
+
+*::-webkit-selection {
+	background-color: #d9bd8c;
+	color: #dadada;
+}
+
+*::-moz-selection {
+	background-color: #dfa82f8f;
+	color: #dadada;
+}
+
+/* Adapteurs de la mise en page selon la taille de l'écran */
+
+@media screen and (max-width: 1023px) {
+	.fenêtre p {
+		margin-left: 64px;
+		margin-right: 64px;
+	}
+	.fenêtre a {
+		text-decoration: underline;
+	}
+	.fenêtre a::after {
+		display: none;
+	}
+	#filtre::after {
+		display: none !important;
+	}
+	nav.visible {
+		margin: 0 50vw;
+		transform: translate(50%, -50%);
+	}
+}
+
+@media screen and (max-height: 824px),
+	   screen and (max-width: 824px) {
+	.fenêtre p {
+		width: 100vw;
+		margin: auto;
+		text-align: justify;
+		box-sizing: border-box;
+		background-color: #0008;
+		text-shadow: 2px 2px 4px black;
+		box-shadow: 0 0 96px 32px black;
+	}
+}
+
+@media screen and (max-width: 540px),
+	   screen and (max-height: 540px) {
+	#boutonMenu,
+	#navigationRapide button {
+		display: none;
+	}
+	.fenêtre iframe {
+		width: 80vw;
+		height: 25vh;
+		margin: 0 auto;
+	}
+}
+
+/* Chargeur des polices de texte */
+
+@font-face {
+	font-family: "Berkshire Swash";
+	src: url("BerkshireSwash.ttf");
+}
+
+@font-face {
+	font-family: "Parisienne";
+	src: url("Parisienne.ttf");
+}
